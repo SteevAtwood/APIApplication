@@ -1,6 +1,5 @@
 package APIApp.controller;
 
-
 // import org.hibernate.mapping.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Map;
 
-
+// @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class inquiryController {
 
@@ -25,9 +24,14 @@ public class inquiryController {
     MySqlRepository mySqlRepository;
 
     @GetMapping("/get-all-summary")
-    public List<InquirySummary> getAllSummary(){
+    public List<InquirySummary> getAllSummary() {
 
         return mySqlRepository.findAll();
+    }
+
+    @GetMapping("/search/{password}")
+    public InquirySummary searchSummary(@PathVariable("password") String password) {
+        return mySqlRepository.findByPassword(password).orElse(null);
     }
 
     @GetMapping("/get-summary/{id}")
@@ -46,15 +50,15 @@ public class inquiryController {
 
     @PutMapping("/update/{id}")
     public InquirySummary updateSummary(@PathVariable("id") Integer id,
-                                        @RequestBody Map<String, String> body) {
+            @RequestBody Map<String, String> body) {
 
-    InquirySummary current = mySqlRepository.findById(id).get();
-    current.setText(body.get("text"));
-    current.setLink(body.get("link"));
-    current.setPassword(body.get("password")); 
+        InquirySummary current = mySqlRepository.findById(id).get();
+        current.setText(body.get("text"));
+        current.setLink(body.get("link"));
+        current.setPassword(body.get("password"));
 
-    mySqlRepository.save(current);
-    return current;
+        mySqlRepository.save(current);
+        return current;
 
     }
 
@@ -62,13 +66,12 @@ public class inquiryController {
     public InquirySummary create(@RequestBody Map<String, String> body) {
         String text = body.get("text");
         String link = body.get("link");
-        String password = body.get("password"); 
+        String password = body.get("password");
 
-        InquirySummary newInquirySummary = new InquirySummary(text, link, password) ;
+        InquirySummary newInquirySummary = new InquirySummary(text, link, password);
 
         return mySqlRepository.save(newInquirySummary);
     }
-
 
 }
 
