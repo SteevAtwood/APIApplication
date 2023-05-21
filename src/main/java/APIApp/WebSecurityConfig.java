@@ -141,7 +141,7 @@ public class WebSecurityConfig {
 
         // Limited to API routes (neither actuator nor Swagger-UI)
         final var source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/search/**", configuration);
+        source.registerCorsConfiguration("/**", configuration);
 
         return source;
     }
