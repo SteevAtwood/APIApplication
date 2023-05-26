@@ -134,7 +134,7 @@ public class WebSecurityConfig {
     private CorsConfigurationSource corsConfigurationSource() {
         // Very permissive CORS config...
         final var configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://164.68.102.104:3000"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setExposedHeaders(Arrays.asList("*"));
